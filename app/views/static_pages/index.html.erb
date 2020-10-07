@@ -1,0 +1,19 @@
+<h1>Photos</h1>
+
+<h4>Enter your Flickr ID to see your photos</h4>
+<%= form_with url: root_path, method: 'get', local: true do |f| %>
+  <%= f.label :flickr_id, 'Flickr ID' %>
+  <%= f.text_field :flickr_id %>
+  <%= f.submit %>
+<% end %>
+
+<% if params[:commit] %>
+  <% if @photos %>
+    <% @photos.each do |p| %>
+      <% url = "https://live.staticflickr.com/#{p['server']}/#{p['id']}_#{p['secret']}.jpg" %>
+      <%= image_tag url %>
+    <% end %>
+  <% else %>
+    <p>No photos found<p>
+  <% end %>
+<% end %>
